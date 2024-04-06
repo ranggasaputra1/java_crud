@@ -92,10 +92,24 @@ public class main {
             System.err.println("Silahkan Tambah data terlebih dahulu");
             return;
     }
-        String data = bufferInput.readLine();        
-        System.out.println(data);
+        
+        System.out.println("\n| No | Tahun  |\tPenulis               | Penerbit              | Judul Buku");
+        System.out.println("------------------------------------------------------------------------------");
+        String data = bufferInput.readLine();
+        int nomorData = 0;
+        while(data != null){
+            nomorData++;
         StringTokenizer stringToken = new StringTokenizer(data,",");
-        System.out.println(stringToken.nextToken());
+        stringToken.nextToken();
+        System.out.printf("| %2d ", nomorData);
+        System.out.printf("|\t%4s  ", stringToken.nextToken());
+        System.out.printf("|\t%-20s  ",stringToken.nextToken());
+        System.out.printf("| %-20s  ",stringToken.nextToken());
+        System.out.printf("| %s  ",stringToken.nextToken());
+        System.out.print("\n");
+        data = bufferInput.readLine();
+      }
+        System.out.println("------------------------------------------------------------------------------");
  }
     
     private static boolean getYesorNo(String message){
