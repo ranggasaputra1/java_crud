@@ -39,7 +39,7 @@ public class main {
         pilihanUser = terminalInput.next();
         
         
-//Setelah memilih menu maka akan tampil
+//Setelah memilih menu maka akan tampil menggunakan switch case
         switch (pilihanUser) {
     case "1":
         System.out.println("\n================");
