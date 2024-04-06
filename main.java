@@ -4,8 +4,12 @@
  */
 package latihan_pertemuan1_crud;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 //Tugas Java Pertemuan 2 Latihan 1 CRUD(Membuat Halaman Main Menu)
 //Rangga Saputra
@@ -76,10 +80,23 @@ public class main {
       }
     }
     private static void tampilkanData() throws IOException{
-        System.out.println("Kita akan menampilkan data dari method tampilkan data");
         
-        boolean isTambah = getYesorNo("Apakah anda ingin menambah data?");
+        FileReader fileInput;
+        BufferedReader bufferInput;
+        
+        try{
+            fileInput = new FileReader("C:\\Users\\rangg\\Documents\\NetBeansProjects\\Pemrograman Java Lanjut\\src\\latihan_pertemuan1_crud/database.txt");
+            bufferInput = new BufferedReader(fileInput);
+        }catch(FileNotFoundException e){
+            System.err.println("Database tidak ditemukan");
+            System.err.println("Silahkan Tambah data terlebih dahulu");
+            return;
     }
+        String data = bufferInput.readLine();        
+        System.out.println(data);
+        StringTokenizer stringToken = new StringTokenizer(data,",");
+        System.out.println(stringToken.nextToken());
+ }
     
     private static boolean getYesorNo(String message){
         
@@ -109,4 +126,3 @@ public class main {
         }
     }
 }
-
