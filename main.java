@@ -206,6 +206,7 @@ public class main {
         FileReader fileInput = new FileReader("C:\\Users\\rangg\\Documents\\NetBeansProjects\\Pemrograman Java Lanjut\\src\\latihan_pertemuan1_crud/database.txt");
         BufferedReader bufferInput = new BufferedReader(fileInput);
         
+        //fungsi ambil entry berdasarkan tahun
         long entry = 0;
         String data = bufferInput.readLine();
         Scanner dataScanner;
