@@ -5,6 +5,7 @@
 package latihan_pertemuan1_crud;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -55,6 +56,7 @@ public class main {
         System.out.println("\n=========");
         System.out.println("CARI BUKU");
         System.out.println("=========");
+        cariData();
         break;
     case "3":
         System.out.println("\n================");
@@ -79,6 +81,27 @@ public class main {
         isLanjutkan = getYesorNo("Apakah anda ingin melanjutkan?");
       }
     }
+        
+    private static void cariData()throws IOException{
+//  Membaca database ada atau tidak
+       try{
+           //dibawah ini direktori database
+            File file = new File("C:\\Users\\rangg\\Documents\\NetBeansProjects\\Pemrograman Java Lanjut\\src\\latihan_pertemuan1_crud/database.txt");
+        }catch(Exception e){
+            System.err.println("Database tidak ditemukan");
+            System.err.println("Silahkan Tambah data terlebih dahulu");
+            return;
+    }
+        
+//  ambil Keyword dari user
+
+    Scanner terminalInput = new Scanner(System.in);
+        System.out.print("Masukan kata kunci untuk mencari buku: ");
+    String cariString = terminalInput.nextLine();
+        System.out.println(cariString);
+//  cek di database
+    }
+    
     private static void tampilkanData() throws IOException{
         
         FileReader fileInput;
