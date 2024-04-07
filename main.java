@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -98,9 +99,54 @@ public class main {
     Scanner terminalInput = new Scanner(System.in);
         System.out.print("Masukan kata kunci untuk mencari buku: ");
     String cariString = terminalInput.nextLine();
-        System.out.println(cariString);
+        String[] keywords = cariString.split("\\s+");
 //  cek di database
-    }
+    cekBukuDiDatabase(keywords);
+    
+ }
+    private static void cekBukuDiDatabase(String[] keywords)throws IOException{
+        //dibawah ini direktori database
+        FileReader fileInput = new FileReader("C:\\Users\\rangg\\Documents\\NetBeansProjects\\Pemrograman Java Lanjut\\src\\latihan_pertemuan1_crud/database.txt");
+        BufferedReader bufferInput = new BufferedReader(fileInput);
+        String data = bufferInput.readLine();
+        boolean isExist;
+        int nomorData = 0;
+        
+        //Header
+        System.out.println("\n| No | Tahun  |\tPenulis               | Penerbit              | Judul Buku");
+        System.out.println("------------------------------------------------------------------------------");
+        
+        while(data != null){
+            
+        //cek keywords di dalam baris
+        isExist = true;
+        
+        for(String keyword:keywords){
+            isExist = isExist && data.toLowerCase().contains(keyword.toLowerCase());
+            
+        }        
+        //jika keyword cocok maka tampilkan
+        
+        
+        if(isExist){
+        nomorData++;    
+        StringTokenizer stringToken = new StringTokenizer(data,",");
+        stringToken.nextToken();
+        System.out.printf("| %2d ", nomorData);
+        System.out.printf("|\t%4s  ", stringToken.nextToken());
+        System.out.printf("|\t%-20s  ",stringToken.nextToken());
+        System.out.printf("| %-20s  ",stringToken.nextToken());
+        System.out.printf("| %s  ",stringToken.nextToken());
+        System.out.print("\n");
+        }
+        
+           
+            data = bufferInput.readLine();
+
+        }
+        //Footer
+        System.out.println("------------------------------------------------------------------------------");
+}
     
     private static void tampilkanData() throws IOException{
         
@@ -115,7 +161,7 @@ public class main {
             System.err.println("Silahkan Tambah data terlebih dahulu");
             return;
     }
-        
+        //Header
         System.out.println("\n| No | Tahun  |\tPenulis               | Penerbit              | Judul Buku");
         System.out.println("------------------------------------------------------------------------------");
         String data = bufferInput.readLine();
@@ -132,6 +178,7 @@ public class main {
         System.out.print("\n");
         data = bufferInput.readLine();
       }
+        //Footer
         System.out.println("------------------------------------------------------------------------------");
  }
     
