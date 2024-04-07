@@ -5,10 +5,13 @@
 package latihan_pertemuan1_crud;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Year;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -63,6 +66,7 @@ public class main {
         System.out.println("\n================");
         System.out.println("TAMBAH DATA BUKU");
         System.out.println("================");
+        tambahData();
         break;
     case "4":
         System.out.println("\n==============");
@@ -81,6 +85,50 @@ public class main {
 // Message yang akan ditampilkan
         isLanjutkan = getYesorNo("Apakah anda ingin melanjutkan?");
       }
+    }
+    
+    private static void tambahData()throws IOException{
+         //dibawah ini direktori database
+        FileWriter fileOutput = new FileWriter("C:\\Users\\rangg\\Documents\\NetBeansProjects\\Pemrograman Java Lanjut\\src\\latihan_pertemuan1_crud/database.txt",true);
+        BufferedWriter bufferOutput = new BufferedWriter(fileOutput);
+        
+        
+        //mengambil input dari user
+        
+        Scanner terminalInput = new Scanner(System.in);
+        String penulis,judul,penerbit,tahun;
+        
+        System.out.print("Masukan Nama Penulis: ");
+        penulis = terminalInput.nextLine();
+        System.out.print("Masukan Judul Buku: ");
+        judul = terminalInput.nextLine();
+        System.out.print("Masukan Nama Penerbit: ");
+        penerbit = terminalInput.nextLine();
+        System.out.print("Masukan Tahun Terbit, format=(YYYY): ");
+        tahun = ambilTahun();
+        
+       
+        
+        bufferOutput.close();
+ }
+    private static String ambilTahun()throws IOException{
+        boolean tahunValid = false;
+        Scanner terminalInput = new Scanner(System.in);
+        String tahunInput = terminalInput.nextLine();
+        
+        while(!tahunValid){
+            
+        try{
+        Year.parse(tahunInput);
+        tahunValid = true;
+    } catch (Exception e){
+            System.err.println("Format tahun yang anda masukan salah, format=(YYYY)");
+            System.out.print("Silahkan masukan tahun terbit lagi: ");
+            tahunValid = false;
+            tahunInput = terminalInput.nextLine();
+    }
+        }
+        return tahunInput;
     }
         
     private static void cariData()throws IOException{
