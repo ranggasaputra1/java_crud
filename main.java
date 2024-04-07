@@ -172,7 +172,6 @@ public class main {
         
         //menulis buku di database
         if(!isExist){
-//        fiersabesari_2012_1,2012,fiersa besari,media kita,jejak langkah;
 
             System.out.println(ambilEntryPerTahun(penulis,tahun));
             long nomorEntry = ambilEntryPerTahun(penulis,tahun)+1;

@@ -9,3 +9,4 @@ ujang_2024_1,2024,ujang,skuy,ujang1
 skuy1_2024_1,2024,skuy1,skuy1,skuy1
 faqihza_2019_4,2019,faqihza,gramedia,belajar ngoding
 rangga_2024_3,2024,rangga,gramedia,belajar ngoding java
+saputra_2024_1,2024,saputra,gramedia,laptop spek bagus
