@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+
 //Tugas Java Pertemuan 2 Latihan 1 CRUD(Membuat Halaman Main Menu)
 //Rangga Saputra
 //21110422
@@ -77,6 +78,7 @@ public class main {
         System.out.println("\n===============");
         System.out.println("HAPUS DATA BUKU");
         System.out.println("===============");
+        deleteData();
         break;
     default:
         System.err.println("\nInput anda tidak ditemukan\nSilahkan pilih opsi (1-5)");
@@ -86,6 +88,89 @@ public class main {
         isLanjutkan = getYesorNo("Apakah anda ingin melanjutkan?");
       }
     }
+    
+   private static void deleteData()throws IOException{
+    //ambil database original
+    
+    File database = new File("C:\\Users\\rangg\\Documents\\NetBeansProjects\\Pemrograman Java Lanjut\\src\\latihan_pertemuan1_crud/database.txt");
+    FileReader fileInput = new FileReader(database);
+    BufferedReader bufferedInput = new BufferedReader(fileInput);  
+    
+    
+    //buat database sementara
+    File tempDB = new File("C:\\Users\\rangg\\Documents\\NetBeansProjects\\Pemrograman Java Lanjut\\src\\latihan_pertemuan1_crud/tempDB.txt");
+    FileWriter fileOutput = new FileWriter(tempDB);
+    BufferedWriter bufferedOutput = new BufferedWriter(fileOutput);
+
+    //tampilkan data
+    
+        System.out.println("List Buku");
+        tampilkanData();
+    
+    //ambil user input untuk menghapus data
+    
+    Scanner terminalInput = new Scanner(System.in);
+        System.out.print("\nMasukan Nomor Buku yang akan di Hapus: ");
+    int deleteNum = terminalInput.nextInt();
+    
+    
+    //looping untuk membaca tiap data baris dan skip data yg akan di delete
+    
+    
+    int entryCounts = 0;
+    
+    String data = bufferedInput.readLine();
+    
+    while(data != null){
+        entryCounts++;
+        boolean isDelete = false;
+        
+        StringTokenizer st = new StringTokenizer(data,",");
+        
+        
+        //tampilkan data yang ingin dihapus
+        if(deleteNum == entryCounts){
+            System.out.println("\nData yang ingin anda hapus adalah: ");
+            System.out.println("----------------------------------------");
+            System.out.println("Referensi       : "+ st.nextToken());
+            System.out.println("Tahun           : "+ st.nextToken());
+            System.out.println("Penulis         : "+ st.nextToken());
+            System.out.println("Penerbit        : "+ st.nextToken());
+            System.out.println("Judul           : "+ st.nextToken());
+            
+            isDelete = getYesorNo("Apakah anda yakin akan menghapus?");
+        }
+        
+        if(isDelete){
+            // skip pindahkan data dari original ke temp
+            System.out.println("Data Berhasil di Hapus");
+        }else{
+            //pindahkan data dari original ke sementara
+            bufferedOutput.write(data);
+            bufferedOutput.newLine();
+        }
+        data = bufferedInput.readLine();
+    }
+    
+    
+    //menulis data ke file tempDb
+    bufferedOutput.flush();
+    
+    //menambahkan baris ini agar bisa menghapus file original di database
+    bufferedOutput.close();
+    fileOutput.close();
+    bufferedInput.close();
+    fileInput.close();
+    System.gc();
+    
+    
+    //delete original file
+    database.delete();
+    //rename file tempDb jadi database.txt
+    tempDB.renameTo(database);
+    
+    }
+
     
     private static void tampilkanData() throws IOException{
         
@@ -98,6 +183,7 @@ public class main {
         }catch(FileNotFoundException e){
             System.err.println("Database tidak ditemukan");
             System.err.println("Silahkan Tambah data terlebih dahulu");
+            tambahData();
             return;
     }
         //Header
