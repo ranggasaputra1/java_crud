@@ -193,7 +193,7 @@ public class main {
     }
         //Header
         System.out.println("\n| No | Tahun  |\tPenulis               | Penerbit              | Judul Buku");
-        System.out.println("------------------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------------------");
         String data = bufferInput.readLine();
         int nomorData = 0;
         while(data != null){
@@ -209,7 +209,7 @@ public class main {
         data = bufferInput.readLine();
       }
         //Footer
-        System.out.println("------------------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------------------");
  }
     
     private static void cariData()throws IOException{
