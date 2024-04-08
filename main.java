@@ -154,7 +154,7 @@ public class main {
     }
     
     if(!isFound){
-        System.out.println("Data buku tidak ditemukan");
+        System.err.println("Data buku tidak ditemukan");
     }
     
     
