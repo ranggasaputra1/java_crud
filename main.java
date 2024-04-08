@@ -116,7 +116,7 @@ public class main {
     
     //looping untuk membaca tiap data baris dan skip data yg akan di delete
     
-    
+    boolean isFound = false;
     int entryCounts = 0;
     
     String data = bufferedInput.readLine();
@@ -139,6 +139,7 @@ public class main {
             System.out.println("Judul           : "+ st.nextToken());
             
             isDelete = getYesorNo("Apakah anda yakin akan menghapus?");
+            isFound = true;
         }
         
         if(isDelete){
@@ -150,6 +151,10 @@ public class main {
             bufferedOutput.newLine();
         }
         data = bufferedInput.readLine();
+    }
+    
+    if(!isFound){
+        System.out.println("Data buku tidak ditemukan");
     }
     
     
