@@ -73,6 +73,7 @@ public class main {
         System.out.println("\n==============");
         System.out.println("UBAH DATA BUKU");
         System.out.println("==============");
+        updateData();
         break;
     case "5":
         System.out.println("\n===============");
@@ -87,6 +88,154 @@ public class main {
 // Message yang akan ditampilkan
         isLanjutkan = getYesorNo("Apakah anda ingin melanjutkan?");
       }
+    }
+    
+    private static void updateData()throws IOException{
+        //ambil database original 
+        
+        File database = new File("C:\\Users\\rangg\\Documents\\NetBeansProjects\\Pemrograman Java Lanjut\\src\\latihan_pertemuan1_crud/database.txt");
+        FileReader fileInput = new FileReader(database);
+        BufferedReader bufferedInput = new BufferedReader(fileInput);
+        
+        //buat database sementara
+        File tempDB = new File("C:\\Users\\rangg\\Documents\\NetBeansProjects\\Pemrograman Java Lanjut\\src\\latihan_pertemuan1_crud/tempDB.txt");
+        FileWriter fileOutput = new FileWriter(tempDB);
+        BufferedWriter bufferedOutput = new BufferedWriter(fileOutput);
+        
+        //tampilkan data
+        
+        System.out.println("List Buku");
+        tampilkanData();
+        
+        //ambil user input
+        
+        Scanner terminalInput = new Scanner(System.in);
+        System.out.print("\nMasukan Nomor Buku yang akan di Update: ");
+        int updateNum = terminalInput.nextInt();
+        
+        
+        //tampilkan data yang ingin di update
+        
+        String data = bufferedInput.readLine();
+        int entryCounts = 0;
+        while(data != null){
+            entryCounts++;
+            
+            StringTokenizer st = new StringTokenizer(data, ",");
+            
+            //Tampilkan entry counts == updateNum   
+            if(updateNum == entryCounts){
+                System.out.println("\nData yang ingin anda update adalah: ");
+                System.out.println("-----------------------------------------");
+                
+                System.out.println("Referensi       : "+ st.nextToken());
+                System.out.println("Tahun           : "+ st.nextToken());
+                System.out.println("Penulis         : "+ st.nextToken());
+                System.out.println("Penerbit        : "+ st.nextToken());
+                System.out.println("Judul           : "+ st.nextToken());
+                
+                //update Data ya rangga
+                
+                
+                //mengambil input dari user
+                String[] fieldData = {"tahun", "penulis", "penerbit", "judul"};
+                String[] tempData = new String[4];
+                
+                
+                st = new StringTokenizer(data, ",");
+                String originalData = st.nextToken();
+                
+                
+                for(int i=0; i< fieldData.length; i++){
+                boolean isUpdate = getYesorNo("Apakah anda ingin merubah " + fieldData[i]);
+                
+                originalData = st.nextToken();
+                
+                if(isUpdate){
+                    //user input
+                    
+                    if (fieldData[i].equalsIgnoreCase("tahun")){
+                        System.out.print("masukan tahun terbit, format=(YYYY): ");
+                        tempData[i] = ambilTahun();
+                    }else{
+                    terminalInput = new Scanner(System.in);
+                    System.out.print("\nMasukan "+ fieldData[i]+ " baru: ");
+                    tempData[i] = terminalInput.nextLine();
+                    }
+                    
+                   
+                }else{
+                    tempData[i] = originalData;
+                }
+            }
+                
+                //tampilkan data baru ke layar
+                st = new StringTokenizer(data, ",");
+                st.nextToken();
+                System.out.println("\nData baru adalah anda update adalah: ");
+                System.out.println("-----------------------------------------");
+                System.out.println("Tahun           : "+ st.nextToken() + " --> " + tempData[0]);
+                System.out.println("Penulis         : "+ st.nextToken() + " --> " + tempData[1]);
+                System.out.println("Penerbit        : "+ st.nextToken() + " --> " + tempData[2]);
+                System.out.println("Judul           : "+ st.nextToken() + " --> " + tempData[3]);
+                
+                boolean isUpdate = getYesorNo("Apakah anda yakin ingin mengupdate data tersebut");
+                
+                if(isUpdate){
+                    
+                    //cek databaru di database
+                    boolean isExist = cekBukuDiDatabase(tempData, false);
+                    
+                    if(isExist){
+                        System.err.println("data buku sudah ada di database, proses update dibatalkan, silahkan delete data bersangkutan");
+                    }else{
+                        
+                        //format data baru ke dalam database
+                        String tahun = tempData[0];
+                        String penulis = tempData[1];
+                        String penerbit = tempData[2];
+                        String judul = tempData[3];
+                        
+                        //buat primary key
+                        long nomorEntry = ambilEntryPerTahun(penulis,tahun)+1;
+                        String penulisTanpaSpasi = penulis.replaceAll("\\s+", "");
+                        String primaryKey = penulisTanpaSpasi+"_"+tahun+"_"+nomorEntry;
+
+                        //tulis data ke database
+                        bufferedOutput.write(primaryKey+","+tahun+","+penulis+","+penerbit+","+judul);
+                    }
+                    
+                }else{
+                //Copy data ya rangga
+                
+                bufferedOutput.write(data);
+                }
+                
+                
+            }else{
+                //Copy data ya rangga
+                
+                bufferedOutput.write(data);
+            }
+            
+            bufferedOutput.newLine();
+            data = bufferedInput.readLine();
+        }
+         //menulis data ke file tempDb
+            bufferedOutput.flush();
+
+            //menambahkan baris ini agar bisa menghapus file original di database
+            bufferedOutput.close();
+            fileOutput.close();
+            bufferedInput.close();
+            fileInput.close();
+            System.gc();
+
+
+            //delete original file
+            database.delete();
+            //rename file tempDb jadi database.txt
+            tempDB.renameTo(database);
     }
     
    private static void deleteData()throws IOException{

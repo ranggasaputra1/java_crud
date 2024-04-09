@@ -4,6 +4,5 @@ Rangga_2024_1,2024,Rangga,gramedia,belajar Java1
 Rangga_2024_2,2024,Rangga,gramedia,belajar Java2
 faqihza_2019_1,2019,faqihza,gramedia,belajar C++
 faqihza_2019_2,2019,faqihza,gramedia,belajar python
-faqihza_2019_3,2019,faqihza,gramedia,belajar Java
-rangga_2024_3,2024,rangga,gramedia,belajar ngoding java
-saputra_2024_1,2024,saputra,gramedia,laptop spek bagus
+rangga_2024_4,2024,rangga,gramedia,belajar agar menjadi pintar
+saputra_2023_1,2023,saputra,gramedia,atokkkkk
